@@ -23,8 +23,10 @@ RUN echo 'qlgr:123456' | chpasswd && echo "qlgr ALL=(ALL) ALL" >> /etc/sudoers
 RUN echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config && service ssh start
 
 
-ENV http_proxy=http://192.168.3.81:7890
-ENV https_proxy=http://192.168.3.81:7890
+# my own proxy settings
+# ENV http_proxy=http://192.168.3.81:7890
+# ENV https_proxy=http://192.168.3.81:7890
+
 USER root
 
 
