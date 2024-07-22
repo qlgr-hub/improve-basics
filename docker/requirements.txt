@@ -1,0 +1,18 @@
+sympy
+scipy
+pandas
+icu
+scikit-image
+scikit-learn
+onnx
+onnxruntime
+opencv-python
+pyopengl
+pyopencl
+pycuda
+pygame
+pytest
+matplotlib
+jupyterlab
+--extra-index-url https://pypi.ngc.nvidia.com
+onnx-graphsurgeon

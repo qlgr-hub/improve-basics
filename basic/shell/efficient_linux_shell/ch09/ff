@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# $@ means allrguments provided to sctipt
+grep "$@" .ALLFILES

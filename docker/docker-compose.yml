@@ -1,0 +1,27 @@
+services:
+  basic_dev:
+    image: basic_dev:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: basic_dev
+    network_mode: bridge
+    user: "1000:0"
+    restart: always
+    tty: true
+    privileged: true
+    ports:
+      - "18222:22"
+      - "18288:8888"
+    volumes:
+      - /home/qlgr/workspace/basic_dev:/workspace
+      - /home/qlgr/.vscode-server/:/home/qlgr/.vscode-server/
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: "all"
+              capabilities: [gpu]

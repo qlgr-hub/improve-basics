@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Just print matching lines
+grep "$1" ./vault

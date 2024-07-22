@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+cd /etc
+echo "Here is my current directory:"
+pwd

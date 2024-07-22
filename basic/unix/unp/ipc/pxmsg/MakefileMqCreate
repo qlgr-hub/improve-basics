@@ -1,0 +1,30 @@
+
+CC := /usr/bin/gcc
+CFLAG := -Wall
+
+SRCS := ./mqcreate.c
+OBJS := ./mqcreate.o
+
+OUTPUT_D := ../../output/debug/mqcreate
+OUTPUT_R := ../../output/release/mqcreate
+
+LIB_D := ../../lib/debug/
+LIB_R := ../../lib/release/
+
+all: debug release
+
+debug:
+	rm -rf $(OUTPUT_D)
+	$(CC) -c -g $(CFLAG) $(SRCS)
+	$(CC) $(OBJS) -L$(LIB_D) -lunpcom -o $(OUTPUT_D) -lsctp -lrt
+
+release:
+	rm -rf $(OUTPUT_R)
+	$(CC) -c -O2 $(CFLAG) $(SRCS)
+	$(CC) $(OBJS) -L$(LIB_R) -lunpcom -o $(OUTPUT_R) -lsctp -lrt
+
+.PHONY: all clean
+
+clean:
+	rm -rf $(OUTPUT_D)
+	rm -rf $(OUTPUT_R)

@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Capture the script name.
+# $0 is hte path to the script, and basename prints the final filename.
+PROGRAM=$(basename $0)
+# Location of the passwd vault
+DATABASE=./vault.gpg
+
+# Ensure that at least one argument was provided to the script.
+# The expression >&2 directs echo to print on stderr instead of stdout
+if [ $# -ne 1 ]; then
+    >&2 echo "$PROGRAM: look up passwords by string"
+    >&2 echo "Usage: $PROGRAM string"
+    exit 1
+fi
+
+# Store the first argument in a friendly, named variable
+searchstring="$1"
+
+# Store the decrypted text in a variable
+decrypted=$(gpg -d -q "$DATABASE" | grep -v '^#')
+# Loop for exact matches in the third column
+match=$(echo "$decrypted" | awk '$3~/^'$searchstring'$/')
+
+# If the search string doesn't match a key, find all matches
+if [ -z "$match" ]; then
+    match=$(echo "$decrypted" | awk "/$searchstring/")
+fi
+
+# If still no match, print an error message and exit
+if [ -z "$match" ]; then
+    >&2 echo "$PROGRAM: not matches for '$searchstring'"
+    exit 1
+fi
+
+# Print the match
+echo "$match"
