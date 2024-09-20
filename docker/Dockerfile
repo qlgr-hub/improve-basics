@@ -18,8 +18,8 @@ RUN apt update && apt install -y --no-install-recommends sudo vim net-tools open
                                 
 
 # Add default non-root sudoer user and start ssh service
-RUN groupadd -r -g 1000 qlgr && useradd -rm -d /home/qlgr -s /bin/bash -g qlgr -G sudo -u 1000 qlgr
-RUN echo 'qlgr:123456' | chpasswd && echo "qlgr ALL=(ALL) ALL" >> /etc/sudoers
+RUN groupadd -r -g 1000 george && useradd -rm -d /home/george -s /bin/bash -g george -G sudo -u 1000 george
+RUN echo 'george:123456' | chpasswd && echo "george ALL=(ALL) ALL" >> /etc/sudoers
 RUN echo "PermitUserEnvironment yes" >> /etc/ssh/sshd_config && service ssh start
 
 
@@ -55,6 +55,6 @@ RUN rm -rf /tmp/*
 
 EXPOSE 22
 EXPOSE 8888
-WORKDIR /home/qlgr
+WORKDIR /home/george
 ADD startup.sh startup.sh
 ENTRYPOINT ["bash", "startup.sh"]
